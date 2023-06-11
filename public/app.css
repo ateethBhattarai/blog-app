@@ -1,0 +1,35 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: aliceblue;
+    font-family: sans-serif;
+}
+
+article {
+    max-width: 650px;
+    margin: auto;
+    padding: 10px;
+}
+
+h1 {
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+    color: chocolate;
+}
+
+a {
+    text-decoration: none;
+}
+
+p {
+    line-height: 1.8;
+}
+
+article + article {
+    margin-top: 3rem;
+    border-top: solid 1px #c5c5c5;
+}
