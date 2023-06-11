@@ -13,14 +13,17 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [PostController::class, 'index'])->name('home');
 
-Route::get('/post/{post:slug}', [PostController::class, 'show']);
+Route::prefix('/post')->group(function(){
+    Route::get('/{post:slug}', [PostController::class, 'show']);
+    Route::post('/{post:slug}/comments', [PostCommentsController::class, 'store']);
+});
 
-Route::post('/post/{post:slug}/comments', [PostCommentsController::class, 'store']);
+Route::post('/logout', [SessionsController::class, 'destroy'])->middleware('auth');
 
-Route::get('/register',[RegisterController::class,'index'])->middleware('guest');
-Route::post('/register',[RegisterController::class,'store']);
+Route::post('/register', [RegisterController::class, 'store']);
 
-Route::get('/login',[SessionsController::class,'create'])->middleware('guest');
-Route::post('/login',[SessionsController::class,'store'])->middleware('guest');
-
-Route::post('/logout',[SessionsController::class,'destroy'])->middleware('auth');
+Route::middleware('guest')->group(function () {
+    Route::get('/register', [RegisterController::class, 'index']);
+    Route::get('/login', [SessionsController::class, 'create']);
+    Route::post('/login', [SessionsController::class, 'store']);
+});
